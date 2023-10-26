@@ -6,14 +6,30 @@
 import * as Echarts from "echarts";
 import "echarts-gl";
 import { reactive, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import { getParametricEquation, getHeight3D, getPie3D } from "./echart-option/right-center.js";
+import {
+  getParametricEquation,
+  getHeight3D,
+  getPie3D,
+} from "./echart-option/right-center.js";
 const myChartsDom = ref(null);
 const data = reactive({
   dataList: [
-    { name: "火警", value: 10, itemStyle: { color: "#ef8137", opacity: 0.6 } },
-    { name: "设备故障1", value: 30, itemStyle: { color: "#f6c65a", opacity: 0.6 } },
-    { name: "设备报警2", value: 40, itemStyle: { color: "#89ccf1", opacity: 0.6 } },
-    { name: "设备报警3", value: 80, itemStyle: { color: "#25989e", opacity: 0.6 } },
+    { name: "火警", value: 10, itemStyle: { color: "#ef8137", opacity: 1 } },
+    {
+      name: "设备故障1",
+      value: 30,
+      itemStyle: { color: "#f6c65a", opacity: 1 },
+    },
+    {
+      name: "设备报警2",
+      value: 40,
+      itemStyle: { color: "#89ccf1", opacity: 1 },
+    },
+    {
+      name: "设备报警3",
+      value: 80,
+      itemStyle: { color: "#25989e", opacity: 1 },
+    },
   ],
 });
 let chart = null;

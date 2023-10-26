@@ -125,6 +125,40 @@ export const getPie3D = (data, pieData, internalDiameterRatio) => {
   }
   console.log("series", series);
   let boxHeight = getHeight3D(series, 15); //通过传参设定3d饼/环的高度，26代表26px
+  // 补充一个透明的圆环，用于支撑高亮功能的近似实现。
+  series.push({
+    name: "mouseoutSeries",
+    type: "surface",
+    parametric: true,
+    wireframe: {
+      show: false,
+    },
+    itemStyle: {
+      opacity: 0.2,
+      color: "#0000FF",
+    },
+    parametricEquation: {
+      u: {
+        min: 0,
+        max: Math.PI * 2,
+        step: Math.PI / 20,
+      },
+      v: {
+        min: 0,
+        max: Math.PI,
+        step: Math.PI / 20,
+      },
+      x: function (u, v) {
+        return ((Math.sin(v) * Math.sin(u) + Math.sin(u)) / Math.PI) * 2.5;
+      },
+      y: function (u, v) {
+        return ((Math.sin(v) * Math.cos(u) + Math.cos(u)) / Math.PI) * 2.5;
+      },
+      z: function (u, v) {
+        return Math.cos(v) > 0 ? -1 : -1;
+      },
+    },
+  });
   // 准备待返回的配置项，把准备好的 legendData、series 传入。
   let option = {
     backgroundColor: "rgba(0,0,0,0)",
@@ -189,7 +223,7 @@ export const getPie3D = (data, pieData, internalDiameterRatio) => {
         //3d效果可以放大、旋转等，请自己去查看官方配置
         alpha: 40, //角度
         distance: 250, //调整视角到主体的距离，类似调整zoom
-        rotateSensitivity: 0, //设置为0无法旋转
+        rotateSensitivity: 1, //设置为0无法旋转
         zoomSensitivity: 0, //设置为0无法缩放
         panSensitivity: 0, //设置为0无法平移
         autoRotate: true, //自动旋转
